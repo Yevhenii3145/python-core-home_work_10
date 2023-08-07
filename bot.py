@@ -45,6 +45,8 @@ def to_delete(name, phone):
 
     if name not in PHONE_BOOK:
         raise ValueError(f"User '{name}' is not in phone book")
+    elif phone not in (str(p.value) for p in PHONE_BOOK[name].phones):
+        raise ValueError(f"User '{name}' do not have a number {phone}")
     PHONE_BOOK[name].remove_phone(phone)
     print("ITOG",PHONE_BOOK[name])
     if len(PHONE_BOOK[name].phones) == 0:
