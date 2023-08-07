@@ -32,21 +32,20 @@ def add_user(name: str, phone_num: str) -> str:
 
 @input_error
 def change_contact(name: str,old_phone: str, new_phone: str) -> str:
-    # name_user = Name(name)
     if name not in PHONE_BOOK:
         raise ValueError(f"User '{name}' is not in phone book")
+    print('TARGET',PHONE_BOOK[name])
     PHONE_BOOK[name].edit_phone(old_phone,new_phone)
     return f"In phone book changed phone number '{old_phone}' of user '{name}' to '{new_phone}'"
 
 
 @input_error
 def to_delete(name, phone):
-    user_name = Name(name)
-    phone_number = Phone(phone)
 
     if name not in PHONE_BOOK:
         raise ValueError(f"User '{name}' is not in phone book")
-    PHONE_BOOK[name].remove_phone(phone_number)
+    PHONE_BOOK[name].remove_phone(phone)
+    print("ITOG",PHONE_BOOK[name])
     return f"In phone book deleted phone number '{phone}' of user '{name}"
 
 
@@ -54,7 +53,7 @@ def to_delete(name, phone):
 def get_phone(name: str) -> str:
     if name not in PHONE_BOOK:
         raise ValueError(f"User '{name}' is not in phone book.")
-    return f"Target phone number for user '{name}' is '{PHONE_BOOK[name]}'"
+    return f"Target phone number for user '{name}' is '{', '.join(str(p.value) for p in PHONE_BOOK[name].phones)}'"
 
 
 @input_error

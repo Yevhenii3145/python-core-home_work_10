@@ -39,9 +39,9 @@ class Record():
         if index is not None:
             self.phones[index] = Phone(new_phone)
 
-    def find_phone_index(self, phone:int):
+    def find_phone_index(self, old_phone:int):
         for index, phone in enumerate(self.phones):
-            if phone.value == phone:
+            if phone.value == old_phone:
                 return index
         return None
 
