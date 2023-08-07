@@ -20,16 +20,13 @@ def say_hello() -> str:
 
 @input_error
 def add_user(name: str, phone_num: str) -> str:
-    # name_user = Name(name)
-    # phone_number = Phone(phone_num)
+    record = Record(name,phone_num)
 
     if name in PHONE_BOOK:
-        # print(PHONE_BOOK[name_user.value])
         PHONE_BOOK[name].add_phone(phone_num)
         return f"In phone book added user '{name}' with phone '{phone_num}'"
     else:
-        PHONE_BOOK[name].add_phone(phone_num)
-    # PHONE_BOOK[name_user.value].add_phone(phone_number)
+        PHONE_BOOK.add_record(record)
     return f"In phone book field user '{name}' added phone '{phone_num}'"
 
 
@@ -64,10 +61,8 @@ def show_all() -> str:
     if not PHONE_BOOK:
         return "The phone book is empty."
     result = "show_all:\n"
-    # for name, phone in PHONE_BOOK.items():
-    #     result += f"{name} - {phone}\n"
     for name  in PHONE_BOOK:
-        result += f"{name}: {PHONE_BOOK[name].value}"
+        result += f"{name}: {PHONE_BOOK[name].phones}"
     return result
 
 
