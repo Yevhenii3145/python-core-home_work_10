@@ -31,7 +31,8 @@ def add_user(name: str, phone_num: str) -> str:
 
 
 @input_error
-def change_contact(name: str,old_phone, new_phone: str) -> str:
+def change_contact(name: str,old_phone: str, new_phone: str) -> str:
+    # name_user = Name(name)
     if name not in PHONE_BOOK:
         raise ValueError(f"User '{name}' is not in phone book")
     PHONE_BOOK[name].edit_phone(old_phone,new_phone)
@@ -62,7 +63,7 @@ def show_all() -> str:
         return "The phone book is empty."
     result = "show_all:\n"
     for name  in PHONE_BOOK:
-        result += f"{name}: {PHONE_BOOK[name].phones}"
+        result += f"{name}: {', '.join(str(p.value) for p in PHONE_BOOK[name].phones)}\n"
     return result
 
 

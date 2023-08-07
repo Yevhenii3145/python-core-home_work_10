@@ -4,6 +4,8 @@ from collections import UserDict
 class Field():
     def __init__(self, value):
         self.value = value
+    # def __str__(self):
+    #     return f"{self.value}"
 
 class Name(Field):
     def __init__(self, name:str):
@@ -20,6 +22,8 @@ class Record():
         self.name = Name(name)
         self.phone = Phone(phone)
         self.phones = []
+        if phone:
+            self.add_phone(phone)
 
     def add_phone(self,phone:int):
         phone = Phone(phone)
