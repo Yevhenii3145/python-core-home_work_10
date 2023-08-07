@@ -1,10 +1,11 @@
 import typing
-from address_book import AddressBook, Record, Name, Phone
+from address_book import AddressBook, Record
 
 PHONE_BOOK = AddressBook()
 
 
 def input_error(func: typing.Callable) -> typing.Callable:
+
     def inner(*args: str, **kwargs: dict) -> str:
         try:
             return f"{func(*args, **kwargs)}"
@@ -20,23 +21,24 @@ def say_hello() -> str:
 
 @input_error
 def add_user(name: str, phone_num: str) -> str:
-    record = Record(name,phone_num)
 
     if name in PHONE_BOOK:
         PHONE_BOOK[name].add_phone(phone_num)
-        return f"In phone book added user '{name}' with phone '{phone_num}'"
+        return f"In phone book with user '{name}' added phone '{phone_num} in list phone'"
     else:
+        record = Record(name, phone_num)
         PHONE_BOOK.add_record(record)
-    return f"In phone book field user '{name}' added phone '{phone_num}'"
+    return f"In phone book with user '{name}' added phone '{phone_num}'"
 
 
 @input_error
-def change_contact(name: str,old_phone: str, new_phone: str) -> str:
+def change_contact(name: str, old_phone: str, new_phone: str) -> str:
+
     if name not in PHONE_BOOK:
         raise ValueError(f"User '{name}' is not in phone book")
     elif old_phone not in (str(p.value) for p in PHONE_BOOK[name].phones):
         raise ValueError(f"User '{name}' do not have a number {old_phone}")
-    PHONE_BOOK[name].edit_phone(old_phone,new_phone)
+    PHONE_BOOK[name].edit_phone(old_phone, new_phone)
     return f"In phone book changed phone number '{old_phone}' of user '{name}' to '{new_phone}'"
 
 
@@ -47,8 +49,9 @@ def to_delete(name, phone):
         raise ValueError(f"User '{name}' is not in phone book")
     elif phone not in (str(p.value) for p in PHONE_BOOK[name].phones):
         raise ValueError(f"User '{name}' do not have a number {phone}")
+
     PHONE_BOOK[name].remove_phone(phone)
-    print("ITOG",PHONE_BOOK[name])
+    print("ITOG", PHONE_BOOK[name])
     if len(PHONE_BOOK[name].phones) == 0:
         PHONE_BOOK.pop(name)
 
@@ -57,6 +60,7 @@ def to_delete(name, phone):
 
 @input_error
 def get_phone(name: str) -> str:
+
     if name not in PHONE_BOOK:
         raise ValueError(f"User '{name}' is not in phone book.")
     return f"Target phone number for user '{name}' is '{', '.join(str(p.value) for p in PHONE_BOOK[name].phones)}'"
@@ -64,10 +68,11 @@ def get_phone(name: str) -> str:
 
 @input_error
 def show_all() -> str:
+
     if not PHONE_BOOK:
         return "The phone book is empty."
     result = "show_all:\n"
-    for name  in PHONE_BOOK:
+    for name in PHONE_BOOK:
         result += f"{name}: {', '.join(str(p.value) for p in PHONE_BOOK[name].phones)}\n"
     return result
 
@@ -103,7 +108,8 @@ def main() -> None:
 
         if user_input in ["good bye", "close", "exit"]:
             handler = get_handler('close')
-            request_data = user_input.replace('good bye', "").replace("close","").replace("exit","").split()
+            request_data = user_input.replace('good bye', "").replace(
+                "close", "").replace("exit", "").split()
             print(handler(*request_data))
             break
 
