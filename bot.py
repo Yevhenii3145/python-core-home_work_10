@@ -113,8 +113,11 @@ def main() -> None:
 
         print("RECVEST DATA", request_data)
 
-        handler = get_handler(comand)
-        print(handler(*request_data))
+        try:
+            handler = get_handler(comand)
+            print(handler(*request_data))
+        except KeyError as error:
+            print(f"I don't know such a command.Er: {error}")
 
 
 if __name__ == "__main__":
